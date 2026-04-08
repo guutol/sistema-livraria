@@ -1,13 +1,13 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Emprestimo {
     private int id;
     private Livro livro;
     private String nomeCliente;
-    private Date dataEmprestimo;
-    private Date dataDevolucao;
+    private LocalDate dataEmprestimo;
+    private LocalDate dataDevolucao;
 
-    public Emprestimo(int id, Livro livro, String nomeCliente, Date dataEmprestimo, Date dataDevolucao) {
+    public Emprestimo(int id, Livro livro, String nomeCliente, LocalDate dataEmprestimo, LocalDate dataDevolucao) {
         this.id = id;
         this.livro = livro;
         this.nomeCliente = nomeCliente;
@@ -39,19 +39,19 @@ public class Emprestimo {
         this.nomeCliente = nomeCliente;
     }
 
-    public Date getDataEmprestimo() {
+    public LocalDate getDataEmprestimo() {
         return dataEmprestimo;
     }
 
-    public void setDataEmprestimo(Date dataEmprestimo) {
+    public void setDataEmprestimo(LocalDate dataEmprestimo) {
         this.dataEmprestimo = dataEmprestimo;
     }
 
-    public Date getDataDevolucao() {
+    public LocalDate getDataDevolucao() {
         return dataDevolucao;
     }
 
-    public void setDataDevolucao(Date dataDevolucao) {
+    public void setDataDevolucao(LocalDate dataDevolucao) {
         this.dataDevolucao = dataDevolucao;
     }
 }

@@ -1,14 +1,14 @@
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Livro {
     private int id;
     private String titulo;
     private Autor autor;
     private boolean disponivel;
-    private Date dataCadastro;
-    private Date dataAtualizacao;
+    private LocalDate dataCadastro;
+    private LocalDate dataAtualizacao;
 
-    public Livro(int id, String titulo, Autor autor, boolean disponivel, Date dataCadastro, Date dataAtualizacao) {
+    public Livro(int id, String titulo, Autor autor, boolean disponivel, LocalDate dataCadastro, LocalDate dataAtualizacao) {
         this.id = id;
         this.titulo = titulo;
         this.autor = autor;
@@ -49,19 +49,19 @@ public class Livro {
         this.disponivel = disponivel;
     }
 
-    public Date getDataCadastro() {
+    public LocalDate getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
+    public void setDataCadastro(LocalDate dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
-    public Date getDataAtualizacao() {
+    public LocalDate getDataAtualizacao() {
         return dataAtualizacao;
     }
 
-    public void setDataAtualizacao(Date dataAtualizacao) {
+    public void setDataAtualizacao(LocalDate dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;
     }
 }
