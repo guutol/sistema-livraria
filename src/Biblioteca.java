@@ -6,6 +6,7 @@ public class Biblioteca {
     private List<Livro> livros = new ArrayList<>();
     private List<Autor> autores = new ArrayList<>();
     private List<Emprestimo> emprestimos = new ArrayList<>();
+    private List<Cliente> clientes = new ArrayList<>();
 
     public Biblioteca() {
         autores.add(new Autor(1, "Marco Aurélio", LocalDate.of(121, 4, 26)));
@@ -19,9 +20,13 @@ public class Biblioteca {
 
     public void listarDisponiveis() {
         System.out.println(" ");
-        for(Livro l : livros)
-            if(l.isDisponivel())
-                System.out.println("ID: " + l.getId() + " Nome: " + l.getTitulo() + " está disponível.");
+        if(!livros.isEmpty()) {
+            for(Livro l : livros)
+                if(l.isDisponivel())
+                    System.out.println("ID: " + l.getId() + " Nome: " + l.getTitulo() + " está disponível.");
+        }
+        else // encerrar programa
+            System.out.println("Não há nenhum livro cadastrado.");
     }
 
     public void realizarEmprestimo(String livro) {
@@ -59,5 +64,29 @@ public class Biblioteca {
         if(!achou) {
             System.out.println("Livro não encontrado na biblioteca.");
         }
+    }
+
+    public void listarClientes() {
+        System.out.println(" ");
+        if(!clientes.isEmpty()) {
+            for(Cliente c : clientes) {
+                System.out.println("ID: " + c.getId() + " Nome: " + c.getNome());
+            }
+        }
+        else
+            System.out.println("Não há nenhum cliente cadastrado.");
+    }
+
+    public void cadastrarLivro(int id, String titulo, Autor autor, LocalDate dataCadastro, LocalDate dataAtualizacao) {
+        // já entra disponível
+        System.out.println(" ");
+        livros.add(new Livro(id, titulo, autor, true, dataCadastro, dataAtualizacao));
+        System.out.println("Livro cadastrado com sucesso.");
+    }
+
+    public void cadastrarCliente(int id, String nome, String email) {
+        System.out.println(" ");
+        clientes.add(new Cliente(id, nome, email));
+        System.out.println("Cliente cadastrado com sucesso.");
     }
 }
