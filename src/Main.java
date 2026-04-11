@@ -2,8 +2,8 @@ public void opcoes1() {
     System.out.println("[A] Cadastrar livro");
     System.out.println("[B] Cadastrar cliente");
     System.out.println("[C] Realizar empréstimo");
-    System.out.println("[D] Listar livros disponíveis");
-    System.out.println("[E] Listrar clientes cadastrados");
+    System.out.println("[D] Listar livros");
+    System.out.println("[E] Listar clientes cadastrados");
     System.out.println("[F] Para sair");
 }
 
@@ -26,9 +26,9 @@ void main() {
                     System.out.println("Digite as informações do livro, como: título e autor");
                     resposta = scanner.nextLine();
                     partes = resposta.split(",");
-                    pessoa = biblioteca.buscarAutor(partes[1]);
+                    pessoa = biblioteca.buscarAutor(partes[1].trim());
                     if(pessoa != null) {
-                        biblioteca.cadastrarLivro(partes[0], pessoa);
+                        biblioteca.cadastrarLivro(partes[0].trim(), pessoa);
                     }
                     else {
                         System.out.println(" ");
@@ -43,8 +43,29 @@ void main() {
                     System.out.println("Digite suas informações, como: nome e e-mail");
                     resposta = scanner.nextLine();
                     partes = resposta.split(",");
-                    biblioteca.cadastrarCliente(partes[0], partes[1]);
+                    biblioteca.cadastrarCliente(partes[0].trim(), partes[1].trim());
                     System.out.println(" ");
+                    opcoes1();
+                    break;
+
+                case "C":
+                    System.out.println("Digite seu nome e o livro");
+                    resposta = scanner.nextLine();
+                    partes = resposta.split(",");
+                    if(biblioteca.realizarEmprestimo(partes[0].trim(), partes[1].trim()))
+                        System.out.println("Empréstimo realizado com sucesso");
+                    else
+                        System.out.println("Houve um erro ao realizar empréstimo");
+                    opcoes1();
+                    break;
+
+                case "D":
+                    biblioteca.listarLivros();
+                    opcoes1();
+                    break;
+
+                case "E":
+                    biblioteca.listarClientes();
                     opcoes1();
                     break;
 

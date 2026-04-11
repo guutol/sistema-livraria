@@ -12,6 +12,10 @@ public class Cliente {
         this.email = email;
     }
 
+    public void addEmprestimos(Emprestimo emprestimo) {
+        emprestimos.add(emprestimo);
+    }
+
     public int getId() {
         return id;
     }
