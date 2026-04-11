@@ -4,6 +4,7 @@ public void opcoes1() {
     System.out.println("[C] Realizar empréstimo");
     System.out.println("[D] Listar livros disponíveis");
     System.out.println("[E] Listrar clientes cadastrados");
+    System.out.println("[F] Para sair");
 }
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -17,39 +18,48 @@ void main() {
     boolean encerrar = false;
     try {
         opcoes1();
-        String opcao = scanner.nextLine();
-        System.out.println(" ");
-        switch (opcao.toUpperCase()) {
-            case "A":
-                System.out.println("Digite as informações do livro, como: título e autor");
-                resposta = scanner.nextLine();
-                partes = resposta.split(",");
-                pessoa = biblioteca.buscarAutor(partes[1]);
-                if(!biblioteca.buscaLivro(biblioteca.getProximoIdLivro())) {
+        while(!encerrar) {
+            String opcao = scanner.nextLine();
+            System.out.println(" ");
+            switch (opcao.toUpperCase()) {
+                case "A":
+                    System.out.println("Digite as informações do livro, como: título e autor");
+                    resposta = scanner.nextLine();
+                    partes = resposta.split(",");
+                    pessoa = biblioteca.buscarAutor(partes[1]);
                     if(pessoa != null) {
                         biblioteca.cadastrarLivro(partes[0], pessoa);
                     }
-                    else
+                    else {
+                        System.out.println(" ");
                         System.out.println("Autor não identificado.");
-                }
-                else {
-                    System.out.println("Livro já cadastrado.");
-                }
-                break;
+                    }
 
-            case "B":
-                System.out.println("Digite suas informações, como: id, nome e e-mail");
-                resposta = scanner.nextLine();
-                partes = resposta.split(",");
-                if(!biblioteca.buscaCliente(biblioteca.getProximoIdCliente())) {
+                    System.out.println(" ");
+                    opcoes1();
+                    break;
+
+                case "B":
+                    System.out.println("Digite suas informações, como: nome e e-mail");
+                    resposta = scanner.nextLine();
+                    partes = resposta.split(",");
                     biblioteca.cadastrarCliente(partes[0], partes[1]);
-                }
-                else
-                    System.out.println("Cliente já cadastrado.");
-                break;
+                    System.out.println(" ");
+                    opcoes1();
+                    break;
 
-            default:
+                case "F":
+                    encerrar = true;
+                    System.out.println("Encerrando...");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida");
+                    System.out.println(" ");
+                    opcoes1();
+            }
         }
+
     } catch (Exception e) {
         System.out.println("Ocorreu um erro: " + e.getMessage());;
     }
