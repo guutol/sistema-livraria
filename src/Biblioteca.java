@@ -7,15 +7,36 @@ public class Biblioteca {
     private List<Autor> autores = new ArrayList<>();
     private List<Emprestimo> emprestimos = new ArrayList<>();
     private List<Cliente> clientes = new ArrayList<>();
+    private int proximoIdLivro = 1, proximoIdCliente = 1, proximoIdEmprestimo = 1;
+
+    public int getProximoIdLivro() {
+        return proximoIdLivro;
+    }
+
+    public void setProximoIdLivro(int proximoIdLivro) {
+        this.proximoIdLivro = proximoIdLivro;
+    }
+
+    public int getProximoIdCliente() {
+        return proximoIdCliente;
+    }
+
+    public void setProximoIdCliente(int proximoIdCliente) {
+        this.proximoIdCliente = proximoIdCliente;
+    }
+
+    public int getProximoIdEmprestimo() {
+        return proximoIdEmprestimo;
+    }
+
+    public void setProximoIdEmprestimo(int proximoIdEmprestimo) {
+        this.proximoIdEmprestimo = proximoIdEmprestimo;
+    }
 
     public Biblioteca() {
         autores.add(new Autor(1, "Marco Aurélio", LocalDate.of(121, 4, 26)));
         autores.add(new Autor(2, "William Shakespeare", LocalDate.of(1564, 4, 23)));
         autores.add(new Autor(3, "Franz Kafka", LocalDate.of(1883, 7, 3)));
-
-        livros.add(new Livro(1, "Meditações",    autores.get(0), true, LocalDate.of(180, 1, 1),  LocalDate.of(180, 12, 31)));
-        livros.add(new Livro(2, "Hamlet",        autores.get(1), true, LocalDate.of(1603, 1, 1), LocalDate.of(1603, 12, 31)));
-        livros.add(new Livro(3, "A Metamorfose", autores.get(2), true, LocalDate.of(1915, 1, 1), LocalDate.of(1915, 12, 31)));
     }
 
     public void listarDisponiveis() {
@@ -39,6 +60,7 @@ public class Biblioteca {
                     if(l.isDisponivel()) {
                         System.out.println("ID: " + l.getId() + " Nome: " + l.getTitulo() + ". Empréstimo realizado com sucesso, boa leitura!");
                         l.setDisponivel(false);
+                        l.setDataAtualizacao(LocalDate.now());
                     }
                     else {
                         System.out.println("O livro não está disponível.");
@@ -46,6 +68,7 @@ public class Biblioteca {
                     achou = true;
                 }
             }
+            proximoIdEmprestimo++;
         }
         else {
             for(Livro l : livros) {
@@ -53,6 +76,7 @@ public class Biblioteca {
                     if(l.isDisponivel()) {
                         System.out.println("ID: " + l.getId() + " Nome: " + l.getTitulo() + ". Empréstimo realizado com sucesso, boa leitura!");
                         l.setDisponivel(false);
+                        l.setDataAtualizacao(LocalDate.now());
                     }
                     else {
                         System.out.println("O livro não está disponível.");
@@ -60,6 +84,7 @@ public class Biblioteca {
                     achou = true;
                 }
             }
+            proximoIdEmprestimo++;
         }
         if(!achou) {
             System.out.println("Livro não encontrado na biblioteca.");
@@ -77,16 +102,44 @@ public class Biblioteca {
             System.out.println("Não há nenhum cliente cadastrado.");
     }
 
-    public void cadastrarLivro(int id, String titulo, Autor autor, LocalDate dataCadastro, LocalDate dataAtualizacao) {
+    public void cadastrarLivro(String titulo, Autor autor) {
         // já entra disponível
         System.out.println(" ");
-        livros.add(new Livro(id, titulo, autor, true, dataCadastro, dataAtualizacao));
+        LocalDate atual = LocalDate.now();
+        livros.add(new Livro(proximoIdLivro, titulo, autor, true, atual, atual));
         System.out.println("Livro cadastrado com sucesso.");
+        proximoIdLivro++;
     }
 
-    public void cadastrarCliente(int id, String nome, String email) {
+    public void cadastrarCliente(String nome, String email) {
         System.out.println(" ");
-        clientes.add(new Cliente(id, nome, email));
+        clientes.add(new Cliente(proximoIdCliente, nome, email));
         System.out.println("Cliente cadastrado com sucesso.");
+        proximoIdCliente++;
+    }
+
+    public Autor buscarAutor(String pessoa) {
+        for(Autor a : autores) {
+            if(a.getNome().equalsIgnoreCase(pessoa)) {
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public boolean buscaLivro(int id) {
+        for(Livro l : livros) {
+            if(l.getId() == id)
+                return true;
+        }
+        return false;
+    }
+
+    public boolean buscaCliente(int id) {
+        for(Cliente c : clientes) {
+            if(c.getId() == id)
+                return true;
+        }
+        return false;
     }
 }

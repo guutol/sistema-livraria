@@ -11,18 +11,44 @@ public void opcoes1() {
 void main() {
     Scanner scanner = new Scanner(System.in);
     Biblioteca biblioteca = new Biblioteca();
+    String resposta, partes[];
+    Autor pessoa;
+
     boolean encerrar = false;
     try {
         opcoes1();
         String opcao = scanner.nextLine();
-        System.out.println("");
-        switch (opcao) {
-            case 1:
-                System.out.println("Digite as informações do livro, como: id, título e autor");
-                String resposta = scanner.nextLine();
-                String[] partes = resposta.split(",");
-                biblioteca.cadastrarLivro();
+        System.out.println(" ");
+        switch (opcao.toUpperCase()) {
+            case "A":
+                System.out.println("Digite as informações do livro, como: título e autor");
+                resposta = scanner.nextLine();
+                partes = resposta.split(",");
+                pessoa = biblioteca.buscarAutor(partes[1]);
+                if(!biblioteca.buscaLivro(biblioteca.getProximoIdLivro())) {
+                    if(pessoa != null) {
+                        biblioteca.cadastrarLivro(partes[0], pessoa);
+                    }
+                    else
+                        System.out.println("Autor não identificado.");
+                }
+                else {
+                    System.out.println("Livro já cadastrado.");
+                }
                 break;
+
+            case "B":
+                System.out.println("Digite suas informações, como: id, nome e e-mail");
+                resposta = scanner.nextLine();
+                partes = resposta.split(",");
+                if(!biblioteca.buscaCliente(biblioteca.getProximoIdCliente())) {
+                    biblioteca.cadastrarCliente(partes[0], partes[1]);
+                }
+                else
+                    System.out.println("Cliente já cadastrado.");
+                break;
+
+            default:
         }
     } catch (Exception e) {
         System.out.println("Ocorreu um erro: " + e.getMessage());;
